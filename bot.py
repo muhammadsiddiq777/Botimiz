@@ -1,4 +1,4 @@
-from import telebot
+import telebot
 from googletrans import Translator
 
 # Bot tokenini kiriting
