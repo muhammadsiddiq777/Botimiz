@@ -3,7 +3,7 @@ from aiogram.utils import executor
 from googletrans import Translator
 
 # Bot tokenini kiriting
-BOT_TOKEN = "SIZNING_BOT_TOKENINGIZ"
+BOT_TOKEN = "8169173541:AAHbLXbACHd5hfY9UH0raRaBcJ3-RITsYOA"
 
 # Bot va dispatcher yaratish
 bot = Bot(token=BOT_TOKEN)
