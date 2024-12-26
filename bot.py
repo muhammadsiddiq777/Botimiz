@@ -4,31 +4,31 @@ from googletrans import Translator
 # Bot tokenini kiriting
 BOT_TOKEN = "8169173541:AAHbLXbACHd5hfY9UH0raRaBcJ3-RITsYOA"
 
-# Bot va dispatcher yaratish
-bot = Bot(token=BOT_TOKEN)
-dp = Dispatcher(bot)
+# Bot yaratish
+bot = telebot.TeleBot(BOT_TOKEN)
 
 # Tarjima funksiyasi uchun translator obyekti
 translator = Translator()
 
 # /start yoki /help komandalariga javob
-@dp.message_handler(commands=['start', 'help'])
-async def send_welcome(message: types.Message):
-    await message.reply(
+@bot.message_handler(commands=['start', 'help'])
+def send_welcome(message):
+    bot.reply_to(
+        message,
         "Salom! Men tarjima botman.\n"
         "Matnni yuboring, va men uni ingliz tilidan o'zbek tiliga (yoki aksincha) tarjima qilaman."
     )
 
 # Tarjima qiluvchi asosiy handler
-@dp.message_handler()
-async def translate_text(message: types.Message):
+@bot.message_handler(func=lambda message: True)
+def translate_text(message):
     try:
         # Matnni tarjima qilish
         translation = translator.translate(message.text, src='auto', dest='uz')
-        await message.reply(f"Tarjima:\n{translation.text}")
+        bot.reply_to(message, f"Tarjima:\n{translation.text}")
     except Exception as e:
-        await message.reply("Kechirasiz, tarjima qilishda xatolik yuz berdi.")
+        bot.reply_to(message, "Kechirasiz, tarjima qilishda xatolik yuz berdi.")
 
 # Botni ishga tushirish
 if __name__ == "__main__":
-    executor.start_polling(dp, skip_updates=True)
+    bot.polling()
